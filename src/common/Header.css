@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Quattrocento+Sans:400,700');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.Header_mainStyle {
+    padding: 20px;
+    background-color: #2196F3;
+}
+
+.flex-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 5vh;
+    font-family: 'Comfortaa', cursive;
+}
+
+.Header_title {
+    font-size: 2rem;
+    color: white;
+    float: left;
+}
+
+.Header_buttons {
+    margin: 5px;
+    float: right;
+    font-size: 1rem;
+}
