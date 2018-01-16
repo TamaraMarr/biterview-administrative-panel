@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./Header.css";
 
-const Search = props => {
+const Header = props => {
 	const reloadPage = () => {
 		document.location.reload();
 	};
@@ -10,16 +11,22 @@ const Search = props => {
 	return (
 		<div className="Header_mainStyle">
 			<nav className="flex-wrapper">
-				<h1 className="Header_title" onClick={reloadPage}>
-					Biterview Administrative Panel
-				</h1>
+				<Link to="/reports">
+					<h1 className="Header_title" onClick={reloadPage}>
+						Biterview Administrative Panel
+					</h1>
+				</Link>
 				<div>
-					<input type="button" value="Reports" className="btn btn-danger Header_buttons" />
-					<input type="button" value="Create Report" className="btn btn-danger Header_buttons" />
+					<Link to="/reports">
+						<input type="button" value="Reports" className="btn btn-danger Header_buttons" />
+					</Link>
+					<Link to="/create">
+						<input type="button" value="Create Report" className="btn btn-danger Header_buttons" />
+					</Link>
 				</div>
 			</nav>
 		</div>
 	);
 };
 
-export default Search;
+export default Header;
