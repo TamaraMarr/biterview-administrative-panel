@@ -1,9 +1,3 @@
-.Search_inputField {
+.Search_inputField, .Search_searchButton {
     margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.Search_searchButton {
-    margin-top: 15px;
-    margin-bottom: 15px;
 }

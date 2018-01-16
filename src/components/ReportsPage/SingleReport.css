@@ -1,37 +1,15 @@
-.SingleReport_table {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
 .SingleReport_table td {
     border: solid 1px black;
     padding: 15px;
     font-size: 1.1rem;
 }
 
-.SingleReport_table td:nth-child(1) {
-    width: 350px;
+.SingleReport_table td:nth-child(5), .SingleReport_table td:nth-child(6) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.SingleReport_table td:nth-child(2) {
-    width: 250px;
-}
-
-.SingleReport_table td:nth-child(3) {
-    width: 350px;
-}
-
-.SingleReport_table td:nth-child(4) {
-    width: 130px;
-}
-
-.SingleReport_table td:nth-child(5) {
-    width: 50px;
-    text-align: center;
-}
-
-.SingleReport_table td:nth-child(6) {
-    width: 50px;
-    text-align: center;
+.SingleReport_ico {
+    width: 30px;
 }

@@ -14,17 +14,8 @@ export default class Search extends React.Component {
     }
 
     bindInit() {
-        this.catchSearchedTerm = this.catchSearchedTerm.bind(this);
         this.handleEnterClick = this.handleEnterClick.bind(this);
         this.filterData = this.filterData.bind(this);
-    }
-
-    catchSearchedTerm(event) {
-        let searchedValue = event.target.value;
-
-        this.setState({
-            searchedValue
-        });
     }
 
     componentDidMount() {
@@ -33,10 +24,14 @@ export default class Search extends React.Component {
         })
     }
 
-    filterData()  {
+    filterData(event)  {
+        this.setState({
+            searchedValue: event.target.value
+        })
+
         var filteredData = [];
         var dataForFiltering = this.props.dataForSearch;
-        var searchString = this.state.searchedValue.toLowerCase();
+        var searchString = event.target.value.toLowerCase();
 
         dataForFiltering.filter(function(report) {
             const name = report.candidateName.toLowerCase();
@@ -46,7 +41,11 @@ export default class Search extends React.Component {
             }
         });
 
-        this.props.returnSearchResults(filteredData);
+        if(!searchString) {
+            this.props.returnSearchResults(this.props.dataForSearch);
+        } else {
+            this.props.returnSearchResults(filteredData);
+        }
     }
  
     handleEnterClick(event) {
@@ -59,7 +58,7 @@ export default class Search extends React.Component {
         return(
             <div className="container">
                 <div className="row">
-                    <input type="text" onChange={this.catchSearchedTerm} onKeyPress={this.handleEnterClick} value={this.state.searchedValue} className="offset-8 col-3 form-control Search_inputField" />
+                    <input type="text" onChange={this.filterData} onKeyPress={this.handleEnterClick} value={this.state.searchedValue} className="offset-8 col-3 form-control Search_inputField" />
                     <input type="button" onClick={this.filterData} value="Search" className="col-1 btn Search_searchButton" />
                 </div>
             </div>

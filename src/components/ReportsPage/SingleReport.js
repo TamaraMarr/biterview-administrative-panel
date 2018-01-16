@@ -4,18 +4,14 @@ import "./SingleReport.css";
 
 const SingleReport = (props) => {
     return (
-        <table className="SingleReport_table">
-            <tbody>
-                <tr>
-                    <td>{props.reportsData.companyName}</td>
-                    <td>{props.reportsData.candidateName}</td>
-                    <td>{props.reportsData.interviewDate}</td>
-                    <td>{props.reportsData.status}</td>
-                    <td className={props.reportsData.key}><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/5968-200.png" style={{ height: "20px" }} alt="details"/></td>
-                    <td className={props.reportsData.key}><img src="https://cdn4.iconfinder.com/data/icons/epic-outlines/30/660989-delete_button-128.png" style={{ height: "20px" }} alt="delete"/></td>
-                </tr>
-            </tbody>
-        </table>
+            <tr className="row SingleReport_table">
+                <td className="col-3">{props.reportsData.companyName}</td>
+                <td className="col-2">{props.reportsData.candidateName}</td>
+                <td className="col-3">{props.reportsData.interviewDate}</td>
+                <td className="col-2">{props.reportsData.status}</td>
+                <td className={`${props.reportsData.key}, col-1`} onClick={() => props.shouldModalDisplay(true)}><img src="https://image.freepik.com/free-icon/eye_318-80708.jpg" className="SingleReport_ico" alt="details"/></td>
+                <td className={`${props.reportsData.key}, col-1`}><img src="https://static.independent.co.uk/static-assets/close-video-preroll.svg" className="SingleReport_ico" style={{ height: "20px" }} alt="delete"/></td>
+            </tr>
     );
 };
 
