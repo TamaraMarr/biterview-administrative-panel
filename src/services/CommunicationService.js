@@ -12,7 +12,6 @@ export default class CommunicationService extends React.Component {
                 successHandler(response.data);
             })
             .catch(error => {
-                console.log(error);
                 let errorMsg = error.response ? error.response.code : "Server unavailable";
                 errorHandler(errorMsg);
             });
@@ -26,7 +25,6 @@ export default class CommunicationService extends React.Component {
                 successHandler(response);
             })
             .catch(error => {
-                console.log(error);
                 let errorMsg = error.response ? error.response.data.error.message : "Server unavailable";
                 errorHandler(errorMsg);
             });

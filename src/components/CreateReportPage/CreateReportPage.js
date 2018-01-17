@@ -4,7 +4,7 @@ import { Switch, Route, Redirect, Link } from "react-router-dom";
 import DataService from "../../services/DataService";
 import SelectCandidate from "./SelectCandidate";
 import SelectCompany from "./SelectCompany";
-import FillReportDetails from "./FillReportDetails";
+import ReportDetails from "./ReportDetails";
 
 import "./CreateReportPage.css";
 
@@ -34,6 +34,7 @@ export default class CreateReportPage extends React.Component {
     bindInit() {
         this.catchChosenCandidate = this.catchChosenCandidate.bind(this);
         this.catchChosenCompany = this.catchChosenCompany.bind(this);
+        this.catchReportDetails = this.catchReportDetails.bind(this);
         this.whatPhaseIsActive = this.whatPhaseIsActive.bind(this);
     }
 
@@ -44,18 +45,21 @@ export default class CreateReportPage extends React.Component {
 
         if(this.props.location.pathname === "/create" || this.props.location.pathname === "/create/stepone") {
             this.setState({
+                showSearch: true,
                 isFirstStepBold: "bold",
                 isSecondStepBold: "",
                 isThirdStepBold: ""
             })
         } else if (this.props.location.pathname === "/create/steptwo") {
             this.setState({
+                showSearch: true,
                 isFirstStepBold: "",
                 isSecondStepBold: "bold",
                 isThirdStepBold: ""
             })
         } else if (this.props.location.pathname === "/create/stepthree") {
             this.setState({
+                showSearch: false,
                 isFirstStepBold: "",
                 isSecondStepBold: "",
                 isThirdStepBold: "bold"
@@ -105,18 +109,21 @@ export default class CreateReportPage extends React.Component {
 
         if(currentPhase === "1step") {
             this.setState({
+                showSearch: true,
                 isFirstStepBold: "bold",
                 isSecondStepBold: "",
                 isThirdStepBold: ""
             })
         } else if(currentPhase === "2step") {
             this.setState({
+                showSearch: true,
                 isFirstStepBold: "",
                 isSecondStepBold: "bold",
                 isThirdStepBold: ""
             })
         } else {
             this.setState({
+                showSearch: false,
                 isFirstStepBold: "",
                 isSecondStepBold: "",
                 isThirdStepBold: "bold"
@@ -124,10 +131,7 @@ export default class CreateReportPage extends React.Component {
         }
     }
 
-    catchChosenCandidate(chosenCandidateId) {
-        const candidateName = this.state.candidatesData[chosenCandidateId].name;
-        const candidateId = this.state.candidatesData[chosenCandidateId].id;
-
+    catchChosenCandidate({ candidateName, candidateId }) {
         newReport["candidateName"] = candidateName;
         newReport["candidateId"] = candidateId;
 
@@ -136,10 +140,7 @@ export default class CreateReportPage extends React.Component {
         })
     }
 
-    catchChosenCompany(chosenCompanyId) {
-        const companyName = this.state.companyData[chosenCompanyId].name;
-        const companyId = this.state.companyData[chosenCompanyId].id;
-
+    catchChosenCompany({ companyName, companyId }) {
         newReport["companyName"] = companyName;
         newReport["companyId"] = companyId;
 
@@ -148,9 +149,28 @@ export default class CreateReportPage extends React.Component {
         })
     }
 
-    catchChosenThirdPageData(thirdPageData) {
+    catchReportDetails({ interviewDate, phase, status, note }) {
+        newReport["interviewDate"] = interviewDate;
+        newReport["phase"] = phase;
+        newReport["status"] = status;
+        newReport["note"] =  note;
 
+        this.setState({
+            newReport
+        })
+
+        this.dataService.createReport(this.state.newReport, (response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        })
     }
+
+    // validateSubmittedData() {
+    //     const dataForSubmitting = this.state.newReport;
+
+    //     if()
+    // } yet to be implemented
 
     render() {
         return(
@@ -170,9 +190,9 @@ export default class CreateReportPage extends React.Component {
                     <div className="col-8">
                         <Switch>
                             <Redirect exact from='/create' to='/create/stepone' />
-                            <Route path='/create/stepone' render={(props) => <SelectCandidate candidatesInfo={this.state.candidatesData} letPageKnow={this.catchChosenCandidate}/> } />
+                            <Route path='/create/stepone' render={(props) => <SelectCandidate candidatesInfo={this.state.candidatesData} letPageKnow={this.catchChosenCandidate} /> } />
                             <Route path='/create/steptwo' render={(props) => <SelectCompany companyInfo={this.state.companyData} letPageKnow={this.catchChosenCompany}/> } />
-                            <Route path='/create/stepthree' render={(props) => <FillReportDetails reportsInfo={this.state.reportsData} letPageKnow={this.catchChosenThirdPageData} />} />
+                            <Route path='/create/stepthree' render={(props) => <ReportDetails reportsInfo={this.state.reportsData} letPageKnow={this.catchReportDetails} />} />
                         </Switch>
                     </div>
                 </div>

@@ -32,7 +32,7 @@ export default class Search extends React.Component {
         var filteredData = [];
         var dataForFiltering = this.props.dataForSearch;
         var searchString = event.target.value.toLowerCase();
-
+        
         dataForFiltering.filter(function(report) {
             const name = report.candidateName.toLowerCase();
             const company = report.companyName.toLowerCase();
@@ -40,20 +40,20 @@ export default class Search extends React.Component {
                 filteredData.push(report);
             }
         });
-
+        
         if(!searchString) {
             this.props.returnSearchResults(this.props.dataForSearch);
         } else {
             this.props.returnSearchResults(filteredData);
         }
     }
- 
+    
     handleEnterClick(event) {
         if(event.key === "Enter") {
             this.filterData();
         }
     }
-
+    
     render() {
         return(
             <div className="container">

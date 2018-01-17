@@ -21,7 +21,7 @@ const SingleReport = (props) => {
         
         return formattedDate;
     }
-console.log(props);
+    
     return (
             <tr className="row SingleReport_table">
                 <td className="col-3">{props.reportsData.companyName}</td>

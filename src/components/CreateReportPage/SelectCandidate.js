@@ -23,7 +23,12 @@ export default class SelectCandidate extends React.Component {
             isSelected: id
         })
 
-        this.props.letPageKnow(id);
+        let candidateInfo = {
+            candidateName: this.props.candidatesInfo[id].name,
+            candidateId: this.props.candidatesInfo[id].id,
+        }
+
+        this.props.letPageKnow(candidateInfo);
     }
 
     render() {
@@ -40,6 +45,7 @@ export default class SelectCandidate extends React.Component {
                                 </div>
                                 })
                     }
+                {this.props.noCandidateNameError ? <p className="error">Please select a candidate</p> : ""}
                 </div>
             </div>
         );

@@ -28,7 +28,8 @@ export default class ReportsPage extends React.Component {
             isThereError: false,
             modalIsOpen: false,
             detailsEventTargetId: 0,
-            deleteEventTargetId: 0
+            deleteEventTargetId: 0,
+            isThereErrorDeleting: false
         }
 
         this.dataService = new DataService();
@@ -117,21 +118,31 @@ export default class ReportsPage extends React.Component {
 
     deletePost() {
         this.dataService.deleteReport(this.state.reportsData[this.state.deleteEventTargetId].id, (response) => {
-            console.log(response);
+            if(response.status >= 200 && response.status <= 399) {
+                this.setState({
+                    isThereErrorDeleting: false
+                })
+                window.location.reload();
+            } else {
+                this.setState({
+                    isThereErrorDeleting: true
+                })
+            }
         }, (error) => {
-            console.log(error);
+            this.setState({
+                isThereErrorDeleting: true
+            })
         })
     }
 
     render() {
-        console.log(this.state.reportsData);
         return(
             <div>
-            <div className="container">
-                <div className="row">
-                    <Search dataForSearch={this.state.reportsData} returnSearchResults={this.callbackForSearch} />
+                <div className="container">
+                    <div className="row">
+                        <Search dataForSearch={this.state.reportsData} returnSearchResults={this.callbackForSearch} />
+                    </div>
                 </div>
-            </div>
                 <table className="container">
                     <tbody className="ReportsPage_table">
                         <tr className="row">
@@ -144,12 +155,14 @@ export default class ReportsPage extends React.Component {
                         {this.renderReports()}
                     </tbody>
                 </table>
+                {this.state.isThereErrorDeleting ? <p className="error">There's been an error - report not deleted</p> : ""}
                 <Modal
                     isOpen={this.state.modalIsOpen} 
                     onRequestClose={this.closeModal}
                     style={modalStyle}
+                    ariaHideApp={false}
                 >
-                    <ReportDetails id={this.state.detailsEventTargetId} allReportsData={this.state.reportsData} />
+                    <ReportDetails id={this.state.eventTargetId} allReportsData={this.state.reportsData} />
                 </Modal>
             </div>
         );

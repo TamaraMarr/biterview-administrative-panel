@@ -42,7 +42,6 @@ export default class DataService {
 
     deleteReport(id, successHandler, errorHandler) {
         this.communicationService.deleteRequest(id, (response) => {
-            console.log(response);
             successHandler(response);
         }, (error) => {
             errorHandler(error);

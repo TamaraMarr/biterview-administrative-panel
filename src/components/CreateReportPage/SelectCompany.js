@@ -7,7 +7,8 @@ export default class SelectCompany extends React.Component {
         super(props)
 
         this.state = {
-            isSelected: ""
+            isSelected: "",
+            isThereError: false
         }
 
         this.bindInit();
@@ -22,7 +23,12 @@ export default class SelectCompany extends React.Component {
             isSelected: id
         })
 
-        this.props.letPageKnow(id);
+        let companyInfo = {
+            companyName: this.props.companyInfo[id].name,
+            companyId: this.props.companyInfo[id].id,
+        }
+
+        this.props.letPageKnow(companyInfo);
     }
 
     render() {
