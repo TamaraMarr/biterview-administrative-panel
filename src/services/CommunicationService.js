@@ -31,4 +31,12 @@ export default class CommunicationService extends React.Component {
                 errorHandler(errorMsg);
             });
     }
+
+    deleteRequest(id, deleteHandler, errorHandler) {
+        const requestURL = `${BASE_URL}/reports/${id}`;
+        
+        axios.delete(requestURL)
+            .then(response => deleteHandler(response))
+            .catch(error => errorHandler(error));
+    }
 }

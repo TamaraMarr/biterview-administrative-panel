@@ -17,11 +17,11 @@ const Header = props => {
 					</h1>
 				</Link>
 				<div>
-					<Link to="/reports">
-						<input type="button" value="Reports" className="btn btn-danger Header_buttons" />
-					</Link>
 					<Link to="/create">
 						<input type="button" value="Create Report" className="btn btn-danger Header_buttons" />
+					</Link>
+					<Link to="/reports">
+						<input type="button" value="Reports" className="btn btn-danger Header_buttons" />
 					</Link>
 				</div>
 			</nav>

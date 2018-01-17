@@ -1,0 +1,23 @@
+.SelectCompany_row {
+    border: solid 1px black;
+}
+
+.SelectCompany_row td {
+    padding: 10px;
+}
+
+.SelectCompany_row p {
+    margin: 0;
+}
+
+.SelectCompany_row:hover {
+    cursor: pointer;
+}
+
+.SelectCandidate_table {
+    margin-left: 25px;
+}
+
+.active-row {
+    background-color: #E3F2FD;
+}

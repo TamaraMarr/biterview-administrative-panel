@@ -26,7 +26,9 @@ export default class ReportsPage extends React.Component {
             filteredReports: [],
             areResultsFiltered: false,
             isThereError: false,
-            modalIsOpen: false
+            modalIsOpen: false,
+            detailsEventTargetId: 0,
+            deleteEventTargetId: 0
         }
 
         this.dataService = new DataService();
@@ -40,6 +42,8 @@ export default class ReportsPage extends React.Component {
         this.displayModal = this.displayModal.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.deletePost = this.deletePost.bind(this);
+        this.shouldDelete = this.shouldDelete.bind(this);
     }
 
     componentDidMount() {
@@ -61,11 +65,11 @@ export default class ReportsPage extends React.Component {
     renderReports() {
         if(this.state.areResultsFiltered) {
             return this.state.filteredReports.map((report, i) => {
-                return <SingleReport reportsData={report} key={i} shouldModalDisplay={this.displayModal} />
+                return <SingleReport reportsData={report} key={i} id={i} shouldModalDisplay={this.displayModal} getDeleteEventTargetId={this.shouldDelete} />
             });
         } else {
             return this.state.reportsData.map((report, i) => {
-                return <SingleReport reportsData={report} key={i} shouldModalDisplay={this.displayModal} />
+                return <SingleReport reportsData={report} key={i} id={i} shouldModalDisplay={this.displayModal} getDeleteEventTargetId={this.shouldDelete} />
             });
         }
     }
@@ -89,15 +93,38 @@ export default class ReportsPage extends React.Component {
         });
     }
 
-    displayModal(shouldDisplayModal) {
+    displayModal(shouldDisplayModal, eventTargetId) {
         if(shouldDisplayModal) {
             this.setState({
                 modalIsOpen: true
             });
         }
+
+        this.setState({
+            eventTargetId
+        })
+    }
+
+    shouldDelete(shouldDelete, deleteEventTargetId) {
+        this.setState({
+            deleteEventTargetId
+        })
+
+        if(shouldDelete) {
+            this.deletePost();
+        }
+    }
+
+    deletePost() {
+        this.dataService.deleteReport(this.state.reportsData[this.state.deleteEventTargetId].id, (response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        })
     }
 
     render() {
+        console.log(this.state.reportsData);
         return(
             <div>
             <div className="container">
@@ -122,7 +149,7 @@ export default class ReportsPage extends React.Component {
                     onRequestClose={this.closeModal}
                     style={modalStyle}
                 >
-                    <ReportDetails />
+                    <ReportDetails id={this.state.detailsEventTargetId} allReportsData={this.state.reportsData} />
                 </Modal>
             </div>
         );
