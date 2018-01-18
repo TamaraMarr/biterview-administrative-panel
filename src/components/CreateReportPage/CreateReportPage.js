@@ -141,7 +141,7 @@ export default class CreateReportPage extends React.Component {
         })
 
         this.dataService.createReport(this.state.newReport, (response) => {
-            setTimeout(() => window.location.href="http://localhost:3000/#/reports", 700);
+            setTimeout(() => window.location.href="http://localhost:3000/#/reports", 900);
         }, (error) => {
             this.setState({
                 createReportError: true

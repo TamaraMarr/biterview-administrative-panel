@@ -34,6 +34,12 @@ export default class ReportDetails extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
+        this.setState({
+            noDateProvided: false,
+            dateError: false,
+            noteError: false
+        })
+
         let reportDetails = {
             interviewDate: interviewDate.value,
             phase: phase.value,
