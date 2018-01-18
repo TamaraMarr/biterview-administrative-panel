@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./SelectCandidate.css";
 
@@ -8,7 +9,8 @@ export default class SelectCandidate extends React.Component {
 
         this.state = {
             bgColor: "",
-            isSelected: ""
+            isSelected: "",
+            isDisabled: "disabled"
         }
 
         this.bindInit();
@@ -18,9 +20,14 @@ export default class SelectCandidate extends React.Component {
         this.handleChosenCandidate = this.handleChosenCandidate.bind(this);
     }
 
+    componentDidMount() {
+        this.props.changePhase();
+    }
+
     handleChosenCandidate(id) {
         this.setState({
-            isSelected: id
+            isSelected: id,
+            isDisabled: ""
         })
 
         let candidateInfo = {
@@ -43,9 +50,12 @@ export default class SelectCandidate extends React.Component {
                                         <p onClick={() => this.handleChosenCandidate(i)}>{candidate.email}</p>
                                     </div>
                                 </div>
-                                })
+                                }
+                        )
                     }
-                {this.props.noCandidateNameError ? <p className="error">Please select a candidate</p> : ""}
+                    <Link to="/create/steptwo" className="offset-10">
+                        <button className="btn" disabled={this.state.isDisabled}>Next</button>
+                    </Link>
                 </div>
             </div>
         );

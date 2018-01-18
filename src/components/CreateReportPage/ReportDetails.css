@@ -5,3 +5,8 @@
 .ReportDetails_note {
     margin-top: 15px;
 }
+
+.errorDiv {
+    width: 100%;
+    text-align: center;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./SelectCompany.css";
 
@@ -8,7 +9,7 @@ export default class SelectCompany extends React.Component {
 
         this.state = {
             isSelected: "",
-            isThereError: false
+            isDisabled: "disabled"
         }
 
         this.bindInit();
@@ -18,9 +19,14 @@ export default class SelectCompany extends React.Component {
         this.handleChosenCompany = this.handleChosenCompany.bind(this);
     }
 
+    componentDidMount() {
+        this.props.changePhase();
+    }
+
     handleChosenCompany(id) {
         this.setState({
-            isSelected: id
+            isSelected: id,
+            isDisabled: ""
         })
 
         let companyInfo = {
@@ -49,6 +55,13 @@ export default class SelectCompany extends React.Component {
                             }
                         </tbody>
                     </table>
+                    <Link to="/create/stepone" className="offset-1">
+                        <button className="btn" onClick={() => this.props.changePhase()}>Back</button>
+                    </Link>
+                    <Link to="/create/stepthree" className="offset-9">
+                        <button className="btn" disabled={this.state.isDisabled}>Next</button>
+                    </Link>
+
                 </div>
             </div>
         );

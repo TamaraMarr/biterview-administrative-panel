@@ -20,10 +20,13 @@ export default class CreateReportPage extends React.Component {
             reportsData: [],
             newReport: {},
             isThereError: false,
-            isFirstStepBold: "bold",
-            isSecondStepBold: "",
-            isThirdStepBold: "",
-            chosenCandidateId: 0
+            createReportError: false,
+            isFirstStepActive: "bold",
+            isSecondStepActive: "",
+            isThirdStepActive: "",
+            chosenCandidateId: 0,
+            chosenCandidateName: "",
+            chosenCompanyName: ""
         }
 
         this.dataService = new DataService();
@@ -42,27 +45,30 @@ export default class CreateReportPage extends React.Component {
         this.getReportsData();
         this.getCandidatesData();
         this.getCompanyData();
+        this.whatPhaseIsActive();
+    }
 
+    whatPhaseIsActive() {
         if(this.props.location.pathname === "/create" || this.props.location.pathname === "/create/stepone") {
             this.setState({
                 showSearch: true,
-                isFirstStepBold: "bold",
-                isSecondStepBold: "",
-                isThirdStepBold: ""
+                isFirstStepActive: "bold",
+                isSecondStepActive: "",
+                isThirdStepActive: ""
             })
         } else if (this.props.location.pathname === "/create/steptwo") {
             this.setState({
                 showSearch: true,
-                isFirstStepBold: "",
-                isSecondStepBold: "bold",
-                isThirdStepBold: ""
+                isFirstStepActive: "",
+                isSecondStepActive: "bold",
+                isThirdStepActive: ""
             })
         } else if (this.props.location.pathname === "/create/stepthree") {
             this.setState({
                 showSearch: false,
-                isFirstStepBold: "",
-                isSecondStepBold: "",
-                isThirdStepBold: "bold"
+                isFirstStepActive: "",
+                isSecondStepActive: "",
+                isThirdStepActive: "bold"
             })
         }
     }
@@ -104,39 +110,13 @@ export default class CreateReportPage extends React.Component {
 
     }
 
-    whatPhaseIsActive(event) {
-        const currentPhase = event.target.getAttribute("name");
-
-        if(currentPhase === "1step") {
-            this.setState({
-                showSearch: true,
-                isFirstStepBold: "bold",
-                isSecondStepBold: "",
-                isThirdStepBold: ""
-            })
-        } else if(currentPhase === "2step") {
-            this.setState({
-                showSearch: true,
-                isFirstStepBold: "",
-                isSecondStepBold: "bold",
-                isThirdStepBold: ""
-            })
-        } else {
-            this.setState({
-                showSearch: false,
-                isFirstStepBold: "",
-                isSecondStepBold: "",
-                isThirdStepBold: "bold"
-            })
-        }
-    }
-
     catchChosenCandidate({ candidateName, candidateId }) {
         newReport["candidateName"] = candidateName;
         newReport["candidateId"] = candidateId;
 
         this.setState({
-            newReport
+            newReport,
+            chosenCandidateName: candidateName
         })
     }
 
@@ -145,7 +125,8 @@ export default class CreateReportPage extends React.Component {
         newReport["companyId"] = companyId;
 
         this.setState({
-            newReport
+            newReport,
+            chosenCompanyName: companyName
         })
     }
 
@@ -160,39 +141,35 @@ export default class CreateReportPage extends React.Component {
         })
 
         this.dataService.createReport(this.state.newReport, (response) => {
-            console.log(response);
+            setTimeout(() => window.location.href="http://localhost:3000/#/reports", 700);
         }, (error) => {
-            console.log(error);
+            this.setState({
+                createReportError: true
+            })
         })
     }
-
-    // validateSubmittedData() {
-    //     const dataForSubmitting = this.state.newReport;
-
-    //     if()
-    // } yet to be implemented
 
     render() {
         return(
             <div className="container CreateReportPage_container">
                 <div className="row">
                     <div className="col-4 CreateReportPage_leftDiv">
-                        <Link to="/create/stepone">
-                            <p style={{ fontWeight: this.state.isFirstStepBold }} onClick={this.whatPhaseIsActive} name="1step">1 Select Candidate</p>
-                        </Link>
-                        <Link to="/create/steptwo">
-                            <p style={{ fontWeight: this.state.isSecondStepBold }} onClick={this.whatPhaseIsActive} name="2step">2 Select Company</p>
-                        </Link>
-                        <Link to="/create/stepthree">
-                            <p style={{ fontWeight: this.state.isThirdStepBold }} onClick={this.whatPhaseIsActive} name="3step">3 Fill Report Details</p>
-                        </Link>
+                        <p style={{ fontWeight: this.state.isFirstStepActive }}>1 Select Candidate</p>
+                        <p style={{ fontWeight: this.state.isSecondStepActive }}>2 Select Company</p>
+                        <p style={{ fontWeight: this.state.isThirdStepActive }}>3 Fill Report Details</p>
+                        {this.state.chosenCandidateName ? <div><hr /><h6 style={{ fontWeight: "bold"}}>Chosen candidate:</h6><p>{this.state.chosenCandidateName}</p></div> : ""}
+                        {this.state.chosenCompanyName ? <div><hr /><h6 style={{ fontWeight: "bold"}}>Chosen company:</h6><p>{this.state.chosenCompanyName}</p></div> : ""}
+                    </div>
+                    <div style={{ textAlign: "center" }}>
+                        {this.state.isThereError ? <p className="error">There's been an error. Please reload the page</p> : ""}
+                        {this.state.createReportError ? <p className="error">Report was not created, please refresh the page and try again</p> : ""}
                     </div>
                     <div className="col-8">
                         <Switch>
                             <Redirect exact from='/create' to='/create/stepone' />
-                            <Route path='/create/stepone' render={(props) => <SelectCandidate candidatesInfo={this.state.candidatesData} letPageKnow={this.catchChosenCandidate} /> } />
-                            <Route path='/create/steptwo' render={(props) => <SelectCompany companyInfo={this.state.companyData} letPageKnow={this.catchChosenCompany}/> } />
-                            <Route path='/create/stepthree' render={(props) => <ReportDetails reportsInfo={this.state.reportsData} letPageKnow={this.catchReportDetails} />} />
+                            <Route path='/create/stepone' render={(props) => <SelectCandidate candidatesInfo={this.state.candidatesData} letPageKnow={this.catchChosenCandidate} changePhase={this.whatPhaseIsActive} />} />
+                            <Route path='/create/steptwo' render={(props) => <SelectCompany companyInfo={this.state.companyData} letPageKnow={this.catchChosenCompany} changePhase={this.whatPhaseIsActive} />} />
+                            <Route path='/create/stepthree' render={(props) => <ReportDetails reportsInfo={this.state.reportsData} letPageKnow={this.catchReportDetails} changePhase={this.whatPhaseIsActive} />} />
                         </Switch>
                     </div>
                 </div>

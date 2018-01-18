@@ -5,3 +5,10 @@
     text-align: center;
     margin-top: 15px;
 }
+
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 25px;
+    font-style: italic;
+}

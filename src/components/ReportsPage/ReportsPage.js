@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import Search from "../../common/Search";
 import DataService from "../../services/DataService";
 import SingleReport from "./SingleReport";
-import ReportDetails from "./ReportDetails";
+import ModalWithReportDetails from "./ModalWithReportDetails";
 
 import "./ReportsPage.css";
 
@@ -43,7 +43,6 @@ export default class ReportsPage extends React.Component {
         this.displayModal = this.displayModal.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.deletePost = this.deletePost.bind(this);
         this.shouldDelete = this.shouldDelete.bind(this);
     }
 
@@ -53,6 +52,7 @@ export default class ReportsPage extends React.Component {
 
     getReportsData() {
         this.dataService.getReportsData((reportsData) => {
+            reportsData.reverse();
             this.setState({
                 reportsData
             });
@@ -64,14 +64,18 @@ export default class ReportsPage extends React.Component {
     }
 
     renderReports() {
-        if(this.state.areResultsFiltered) {
-            return this.state.filteredReports.map((report, i) => {
-                return <SingleReport reportsData={report} key={i} id={i} shouldModalDisplay={this.displayModal} getDeleteEventTargetId={this.shouldDelete} />
-            });
+        if(this.state.reportsData.length === 0) {
+            return <tr className="error"><td>There are no data to display at this moment. Try refreshing the page</td></tr>
         } else {
-            return this.state.reportsData.map((report, i) => {
-                return <SingleReport reportsData={report} key={i} id={i} shouldModalDisplay={this.displayModal} getDeleteEventTargetId={this.shouldDelete} />
-            });
+            if(this.state.areResultsFiltered) {
+                return this.state.filteredReports.map((report, i) => {
+                    return <SingleReport reportsData={report} key={i} id={i} shouldModalDisplay={this.displayModal} getDeleteEventTargetId={this.shouldDelete} />
+                });
+            } else {
+                return this.state.reportsData.map((report, i) => {
+                    return <SingleReport reportsData={report} key={i} id={i} shouldModalDisplay={this.displayModal} getDeleteEventTargetId={this.shouldDelete} />
+                });
+            }
         }
     }
 
@@ -94,44 +98,42 @@ export default class ReportsPage extends React.Component {
         });
     }
 
-    displayModal(shouldDisplayModal, eventTargetId) {
+    displayModal(shouldDisplayModal, detailsEventTargetId) {
         if(shouldDisplayModal) {
             this.setState({
                 modalIsOpen: true
             });
         }
-
+        
         this.setState({
-            eventTargetId
+            detailsEventTargetId
         })
     }
-
-    shouldDelete(shouldDelete, deleteEventTargetId) {
-        this.setState({
-            deleteEventTargetId
-        })
-
-        if(shouldDelete) {
-            this.deletePost();
-        }
-    }
-
-    deletePost() {
-        this.dataService.deleteReport(this.state.reportsData[this.state.deleteEventTargetId].id, (response) => {
+    
+    shouldDelete(deleteEventTargetId) {
+        const reportId = parseInt(deleteEventTargetId, 10);
+        
+        const chosenReport = this.state.reportsData.filter((report) => {
+            if(reportId === report.id) {
+                return report;
+            }
+        });
+        
+        this.dataService.deleteReport(chosenReport[0].id, (response) => {
             if(response.status >= 200 && response.status <= 399) {
                 this.setState({
                     isThereErrorDeleting: false
-                })
-                window.location.reload();
+                });
+                setTimeout(() => window.location.reload(), 700);
             } else {
                 this.setState({
                     isThereErrorDeleting: true
-                })
+                });
             }
         }, (error) => {
             this.setState({
                 isThereErrorDeleting: true
-            })
+            });
         })
     }
 
@@ -162,7 +164,7 @@ export default class ReportsPage extends React.Component {
                     style={modalStyle}
                     ariaHideApp={false}
                 >
-                    <ReportDetails id={this.state.eventTargetId} allReportsData={this.state.reportsData} />
+                    <ModalWithReportDetails id={this.state.detailsEventTargetId} allReportsData={this.state.reportsData} />
                 </Modal>
             </div>
         );

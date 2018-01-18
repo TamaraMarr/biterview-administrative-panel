@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./ReportDetails.css";
+import "./ModalWithReportDetails.css";
 
-const SingleReport = (props) => {
+const ModalWithReportDetails = (props) => {
     let formatDate = () => {
         var dateForFormatting = new Date(chosenCandidate.interviewDate);
         
@@ -31,7 +31,7 @@ const SingleReport = (props) => {
     return (
         <div className="container-fluid">
             <div className="row">
-                <h1 className="col-12 ReportDetails_header">{chosenCandidate.candidateName}</h1>
+                <h1 className="col-12 ModalWithReportDetails_header">{chosenCandidate.candidateName}</h1>
                 <div className="col-6">
                     <h3>Company</h3>
                     <p>{chosenCandidate.companyName}</p>
@@ -51,4 +51,4 @@ const SingleReport = (props) => {
     );
 };
 
-export default SingleReport;
+export default ModalWithReportDetails;

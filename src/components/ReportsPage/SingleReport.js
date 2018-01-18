@@ -6,16 +6,16 @@ const SingleReport = (props) => {
     let sendModalDataToReportsPage = (event) => {
         props.shouldModalDisplay(true, event.target.id);
     }
-
+    
     let sendDeleteDataToReportsPage = (event) => {
-        props.getDeleteEventTargetId(true, event.target.id - 10);
+        props.getDeleteEventTargetId(event.target.id);
     }
 
     let formatDate = () => {
         var dateForFormatting = new Date(props.reportsData.interviewDate);
         
         var formattedDate =
-            (dateForFormatting.getDate() + 1) + "." +
+            (dateForFormatting.getDate()) + "." +
             (dateForFormatting.getMonth() + 1) + "." +
             dateForFormatting.getFullYear() + ".";
         
@@ -28,8 +28,9 @@ const SingleReport = (props) => {
                 <td className="col-2">{props.reportsData.candidateName}</td>
                 <td className="col-3">{formatDate()}</td>
                 <td className="col-2">{props.reportsData.status}</td>
-                <td className="col-1" onClick={sendModalDataToReportsPage}><img id={props.id} src="https://image.freepik.com/free-icon/eye_318-80708.jpg" className="SingleReport_ico" alt="details"/></td>
-                <td className="col-1" onClick={sendDeleteDataToReportsPage}><img id={props.id + 10} src="https://static.independent.co.uk/static-assets/close-video-preroll.svg" className="SingleReport_ico" style={{ height: "20px" }} alt="delete"/></td>
+                <td className="col-1" onClick={sendModalDataToReportsPage}><img id={props.reportsData.candidateId} src="https://image.freepik.com/free-icon/eye_318-80708.jpg" className="SingleReport_ico" alt="details"/></td>
+                <td className="col-1" onClick={sendDeleteDataToReportsPage}><img id={props.reportsData.id} src="https://static.independent.co.uk/static-assets/close-video-preroll.svg" className="SingleReport_ico" style={{ height: "20px" }} alt="delete"/></td>
+                
             </tr>
     );
 };

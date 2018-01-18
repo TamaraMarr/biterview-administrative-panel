@@ -6,7 +6,7 @@ export default class DataService {
     }
 
     getReportsData(successHandler, errorHandler) {
-        this.communicationService.getRequest("/reports", (response) => {
+        this.communicationService.getRequest("reports", (response) => {
             successHandler(response);
         }, (error) => {
             errorHandler(error);
@@ -14,7 +14,7 @@ export default class DataService {
     }
 
     getCandidateData(successHandler, errorHandler) {
-        this.communicationService.getRequest("/candidates", (response) => {
+        this.communicationService.getRequest("candidates", (response) => {
             successHandler(response);
         }, (error) => {
             errorHandler(error);
@@ -22,7 +22,7 @@ export default class DataService {
     }
 
     getCompanyData(successHandler, errorHandler) {
-        this.communicationService.getRequest("/companies", (response) => {
+        this.communicationService.getRequest("companies", (response) => {
             successHandler(response);
         }, (error) => {
             errorHandler(error);
