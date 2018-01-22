@@ -145,18 +145,20 @@ export default class ReportsPage extends React.Component {
                         <Search dataForSearch={this.state.reportsData} returnSearchResults={this.callbackForSearch} />
                     </div>
                 </div>
-                <table className="table container">
-                    <tbody className="ReportsPage_table">
-                        <tr className="row">
-                            <th className="col-3">Company</th>
-                            <th className="col-2">Candidate</th>
-                            <th className="col-3">Interview Date</th>
-                            <th className="col-2">Status</th>
-                            <th colSpan="2" className="col-2">Actions</th>
-                        </tr>
-                        {this.renderReports()}
-                    </tbody>
-                </table>
+                <div style={{ overflowX: "auto", margin: "0 20px" }}>
+                    <table className="table container">
+                        <tbody className="ReportsPage_table">
+                            <tr className="row">
+                                <th className="col-3">Company</th>
+                                <th className="col-2">Candidate</th>
+                                <th className="col-3">Interview Date</th>
+                                <th className="col-2">Status</th>
+                                <th colSpan="2" className="col-2">Actions</th>
+                            </tr>
+                            {this.renderReports()}
+                        </tbody>
+                    </table>
+                </div>
                 {this.state.isThereErrorDeleting ? <p className="error">There's been an error - report not deleted</p> : ""}
                 <Modal
                     isOpen={this.state.modalIsOpen} 

@@ -55,13 +55,8 @@ export default class Search extends React.Component {
     }
     
     render() {
-        return(
-            <div className="container">
-                <div className="row">
-                    <input type="text" onChange={this.filterData} onKeyPress={this.handleEnterClick} value={this.state.searchedValue} className="offset-8 col-3 form-control Search_inputField" />
-                    <input type="button" onClick={this.filterData} value="Search" className="col-1 btn Search_searchButton" />
-                </div>
-            </div>
+        return (
+            <input type="text" onChange={this.filterData} onKeyPress={this.handleEnterClick} value={this.state.searchedValue} className="col-12 form-control Search_inputField" />
         )
     }
 }

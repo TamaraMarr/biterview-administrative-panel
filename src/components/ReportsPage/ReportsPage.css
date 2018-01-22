@@ -1,8 +1,6 @@
-.table {
-    width: 90vw;
+.table, .ReportsPage_table {
     min-width: 700px;
-    margin: 10px auto;
-    overflow: auto;
+    width: 90%;
 }
 
 .ReportsPage_table th {

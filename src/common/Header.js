@@ -9,22 +9,24 @@ const Header = props => {
 	};
 
 	return (
-		<div className="Header_mainStyle">
-			<nav className="flex-wrapper">
-				<Link to="/reports">
-					<h1 className="Header_title" onClick={reloadPage}>
-						Biterview Administrative Panel
-					</h1>
-				</Link>
-				<div>
-					<Link to="/create">
-						<input type="button" value="Create Report" className="btn btn-danger Header_buttons" />
-					</Link>
+		<div className="container-fluid Header_mainStyle">
+			<div className="row">
+				<div className="col-12 col-sm-7 col-md-6 col-lg-5 col-xl-5">
 					<Link to="/reports">
-						<input type="button" value="Reports" className="btn btn-danger Header_buttons" />
+						<h1 className="Header_title" onClick={reloadPage}>
+							Biterview Administrative Panel
+						</h1>
 					</Link>
 				</div>
-			</nav>
+				<div className="col-12 col-sm-5 col-md-6 offset-lg-2 col-lg-5 offset-xl-3 col-xl-4" style={{ textAlign: "center" }}>
+					<Link to="/create">
+						<input type="button" value="Create Report" className="col-5 btn btn-danger Header_buttons" />
+					</Link>
+					<Link to="/reports">
+						<input type="button" value="Reports" className="col-5 btn btn-danger Header_buttons" />
+					</Link>
+				</div>
+			</div>
 		</div>
 	);
 };
