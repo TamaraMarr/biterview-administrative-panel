@@ -145,14 +145,14 @@ export default class ReportsPage extends React.Component {
                         <Search dataForSearch={this.state.reportsData} returnSearchResults={this.callbackForSearch} />
                     </div>
                 </div>
-                <table className="container">
+                <table className="table container">
                     <tbody className="ReportsPage_table">
                         <tr className="row">
-                            <th className="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">Company</th>
-                            <th className="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">Candidate</th>
-                            <th className="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">Interview Date</th>
-                            <th className="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">Status</th>
-                            <th colSpan="2" className="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">Actions</th>
+                            <th className="col-3">Company</th>
+                            <th className="col-2">Candidate</th>
+                            <th className="col-3">Interview Date</th>
+                            <th className="col-2">Status</th>
+                            <th colSpan="2" className="col-2">Actions</th>
                         </tr>
                         {this.renderReports()}
                     </tbody>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect, Link } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import DataService from "../../services/DataService";
 import SelectCandidate from "./SelectCandidate";

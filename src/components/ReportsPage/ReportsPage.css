@@ -1,3 +1,10 @@
+.table {
+    width: 90vw;
+    min-width: 700px;
+    margin: 10px auto;
+    overflow: auto;
+}
+
 .ReportsPage_table th {
     border: solid 1px black;
     padding: 15px;
