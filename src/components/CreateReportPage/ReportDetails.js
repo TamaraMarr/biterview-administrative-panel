@@ -119,14 +119,14 @@ export default class ReportDetails extends React.Component {
                 <div className="row">
                     <h2 className="col-12 ReportDetails_header">Select Company</h2>
                     <form className="col-12">
-                        <input type="date" className="col-4 ReportDetails_date" placeholder="YYYY-MM-DD" ref={element => interviewDate = element} id="date" name="interviewDate" />
-                        <select className="col-4 ReportDetails_phase" name="phase" ref={element => phase = element}>
+                        <input type="date" className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 ReportDetails_date" placeholder="YYYY-MM-DD" ref={element => interviewDate = element} id="date" name="interviewDate" />
+                        <select className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 ReportDetails_phase" name="phase" ref={element => phase = element}>
                             <option value="cv">CV</option>
                             <option value="hr">HR</option>
                             <option value="tech">Tech</option>
                             <option value="final">Final</option>
                         </select>
-                        <select className="col-4 ReportDetails_status" name="status" ref={element => status = element}>
+                        <select className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 ReportDetails_status" name="status" ref={element => status = element}>
                             <option value="passed">Passed</option>
                             <option value="failed">Failed</option>
                         </select>

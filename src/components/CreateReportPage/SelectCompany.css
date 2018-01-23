@@ -15,8 +15,8 @@
 }
 
 .SelectCandidate_table {
-    margin-left: 25px;
-    margin-bottom: 25px;
+    width: 100%;
+    margin: 25px;
 }
 
 .active-row {

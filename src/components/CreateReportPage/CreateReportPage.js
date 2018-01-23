@@ -152,8 +152,8 @@ export default class CreateReportPage extends React.Component {
     render() {
         return(
             <div className="container CreateReportPage_container">
-                <div className="row">
-                    <div className="col-4 CreateReportPage_leftDiv">
+                <div className="row" style={{ marginBottom: "55px" }}>
+                    <div className="col-3 CreateReportPage_leftDiv">
                         <p style={{ fontWeight: this.state.isFirstStepActive }}>1 Select Candidate</p>
                         <p style={{ fontWeight: this.state.isSecondStepActive }}>2 Select Company</p>
                         <p style={{ fontWeight: this.state.isThirdStepActive }}>3 Fill Report Details</p>
@@ -164,7 +164,7 @@ export default class CreateReportPage extends React.Component {
                         {this.state.isThereError ? <p className="error">There's been an error. Please reload the page</p> : ""}
                         {this.state.createReportError ? <p className="error">Report was not created, please refresh the page and try again</p> : ""}
                     </div>
-                    <div className="col-8">
+                    <div className="col-9">
                         <Switch>
                             <Redirect exact from='/create' to='/create/stepone' />
                             <Route path='/create/stepone' render={(props) => <SelectCandidate candidatesInfo={this.state.candidatesData} letPageKnow={this.catchChosenCandidate} changePhase={this.whatPhaseIsActive} />} />

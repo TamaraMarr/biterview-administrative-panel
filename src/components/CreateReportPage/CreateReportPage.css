@@ -4,8 +4,8 @@
 
 .CreateReportPage_leftDiv {
     border-right: solid 1px black;
-    text-align: right;
-    padding-right: 50px;
+    text-align: center;
+    word-wrap: break-word;
 }
 
 .CreateReportPage_leftDiv p {
